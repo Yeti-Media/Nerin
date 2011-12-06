@@ -7,12 +7,13 @@ hashMerge = (o, ob) ->
 window.Nerin = 
 
   #UrlHelpers
+ 
   linkTo: (title, href, attributes = {}) ->
     this.contentTag 'a' , title , hashMerge({href: href},attributes)
   
   buttonTo: (action , method, attributes = {}) ->
     this.formTag action , {method: method}, () ->
-      this.inputTag 'submit' , attributes
+    this.inputTag 'submit' , attributes
   
   mailTo: (mail) ->
     this.linkTo mail, "mailto:#{mail}"
@@ -25,6 +26,9 @@ window.Nerin =
   #FormHelpers
   formTag: (action,attributes = {}, content) ->
     this.contentTag('form', content(), hashMerge({method: 'POST'},attributes))
+
+  labelTag: (fr, title, attributes = {}) ->
+    this.contentTag('label' , title, hashMerge({for: fr}, attributes))
 
   inputTag: (type , value = null, attributes = {}) ->
     this.contentTag 'input', hashMerge({type: type , value: value},attributes)
@@ -40,6 +44,26 @@ window.Nerin =
 
   fileFieldTag: (n,value,attributes = {}) -> 
     this.inputTag 'file' , hashMerge({name: n, value: value}, attributes)
+  
+  checkBoxTag: (n,value,checked = true, attributes = {}) ->
+    attrs = {value: value, name: n}
+    attrs = hashMerge(attrs, checked: 'checked') if checked
+    this.inputTag 'checkbox' , hashMerge(attrs,attributes)
+  
+  radioButtonTag: (n,value,checked = true, attributes = {}) ->
+    attrs = {value: value, name: n}
+    attrs = hashMerge(attrs, checked: 'checked') if checked
+    this.inputTag 
+
+  selectTag: (n, options, select_attributes = {}, attributes = {}) ->
+    content = ''
+    content +=  this.optionTag("","") if select_attributes.include_blank
+    content += options 
+    this.contentTag 'select' , content , attributes
+
+  optionTag: (title, value) ->
+    this.contentTag 'option' , title , {value: value}
+
 
   submitTag: (n = 'Commit',value = 'Submit',attributes = {}) ->
     this.inputTag 'submit', hashMerge({name: n, value: value}, attributes)
@@ -72,7 +96,8 @@ window.Nerin =
        output += " />"
      else
        output += ">#{innerHTML}</#{tag}>"
-     output
+ 
+ output
 
 
 

@@ -20,11 +20,10 @@
     },
     buttonTo: function(action, method, attributes) {
       if (attributes == null) attributes = {};
-      return this.formTag(action, {
+      this.formTag(action, {
         method: method
-      }, function() {
-        return this.inputTag('submit', attributes);
-      });
+      }, function() {});
+      return this.inputTag('submit', attributes);
     },
     mailTo: function(mail) {
       return this.linkTo(mail, "mailto:" + mail);
@@ -39,6 +38,12 @@
       if (attributes == null) attributes = {};
       return this.contentTag('form', content(), hashMerge({
         method: 'POST'
+      }, attributes));
+    },
+    labelTag: function(fr, title, attributes) {
+      if (attributes == null) attributes = {};
+      return this.contentTag('label', title, hashMerge({
+        "for": fr
       }, attributes));
     },
     inputTag: function(type, value, attributes) {
@@ -75,6 +80,50 @@
         name: n,
         value: value
       }, attributes));
+    },
+    checkBoxTag: function(n, value, checked, attributes) {
+      var attrs;
+      if (checked == null) checked = true;
+      if (attributes == null) attributes = {};
+      attrs = {
+        value: value,
+        name: n
+      };
+      if (checked) {
+        attrs = hashMerge(attrs, {
+          checked: 'checked'
+        });
+      }
+      return this.inputTag('checkbox', hashMerge(attrs, attributes));
+    },
+    radioButtonTag: function(n, value, checked, attributes) {
+      var attrs;
+      if (checked == null) checked = true;
+      if (attributes == null) attributes = {};
+      attrs = {
+        value: value,
+        name: n
+      };
+      if (checked) {
+        attrs = hashMerge(attrs, {
+          checked: 'checked'
+        });
+      }
+      return this.inputTag;
+    },
+    selectTag: function(n, options, select_attributes, attributes) {
+      var content;
+      if (select_attributes == null) select_attributes = {};
+      if (attributes == null) attributes = {};
+      content = '';
+      if (select_attributes.include_blank) content += this.optionTag("", "");
+      content += options;
+      return this.contentTag('select', content, attributes);
+    },
+    optionTag: function(title, value) {
+      return this.contentTag('option', title, {
+        value: value
+      });
     },
     submitTag: function(n, value, attributes) {
       if (n == null) n = 'Commit';
@@ -130,12 +179,13 @@
         return _results;
       })();
       if (!innerHTML) {
-        output += " />";
+        return output += " />";
       } else {
-        output += ">" + innerHTML + "</" + tag + ">";
+        return output += ">" + innerHTML + "</" + tag + ">";
       }
-      return output;
     }
   };
+
+  output;
 
 }).call(this);
