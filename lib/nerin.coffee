@@ -1,62 +1,61 @@
-Object::merge = (ob) -> 
-   o = this
+hashMerge = (o, ob) -> 
    i = 0
    for key, value of ob
      o[key] = value
-   return o
+   o
 
 window.Nerin = 
 
   #UrlHelpers
   linkTo: (title, href, attributes = {}) ->
-    contentTag 'a' , title , attributes.merge(href: href)
+    this.contentTag 'a' , title , hashMerge({href: href},attributes)
   
   buttonTo: (action , method, attributes = {}) ->
-    formTag action , {method: method}, () ->
-      inputTag 'submit' , attributes
+    this.formTag action , {method: method}, () ->
+      this.inputTag 'submit' , attributes
   
   mailTo: (mail) ->
-    link_to mail, "mailto:#{mail}"
+    this.linkTo mail, "mailto:#{mail}"
 
   #AssetHelpers
   imageTag: (src, attributes = {}) ->
-    contentTag 'img' , attributes.merge(src: src)
+    this.contentTag 'img' , hashMerge({src: src},attributes)
     
  
   #FormHelpers
   formTag: (action,attributes = {}, content) ->
-    contentTag('form', content(), {method: 'POST'}.merge(attributes))
+    this.contentTag('form', content(), hashMerge({method: 'POST'},attributes))
 
   inputTag: (type , value = null, attributes = {}) ->
-    contentTag 'input', {type: type , value: value}.merge(attributes)
+    this.contentTag 'input', hashMerge({type: type , value: value},attributes)
 
   textFieldTag: (n,value,attributes = {}) ->
-    inputTag 'text' , {name: name, value: value}.merge(attributes)
+    this.inputTag 'text' , hashMerge({name: name, value: value},attributes)
 
   textAreaTag: (n,value,attributes = {}) -> 
-    contentTag 'textarea', value , {name: n}.merge(attributes)
+    this.contentTag 'textarea', value , hashMerge({name: n},attributes)
 
   passwordFieldTag: (n,value,attributes = {}) ->
-    inputTag 'password' , {name: n, value: value}.merge(attributes)
+    this.inputTag 'password' , hashMerge({name: n, value: value}, attributes)
 
   fileFieldTag: (n,value,attributes = {}) -> 
-    inputTag 'file' , {name: n, value: value}.merge(attributes)
+    this.inputTag 'file' , hashMerge({name: n, value: value}, attributes)
 
   submitTag: (n = 'Commit',value = 'Submit',attributes = {}) ->
-    inputTag 'submit', {name: n, value: value}.merge(attributes)
+    this.inputTag 'submit', hashMerge({name: n, value: value}, attributes)
 
   #  Source tags
   javascriptTag: (data) ->
-    contentTag 'script' , data , {type: "text/javascript"}
+    this.contentTag 'script' , data , {type: "text/javascript"}
 
   stylesheetTag: (data) ->
-    contentTag 'style' , data , {type: "text/css"}
+    this.contentTag 'style' , data , {type: "text/css"}
   
   javascriptIncludeTag: (src) ->
-    contentTag 'script', '' , {src: src , type: "text/javascript" }
+    this.contentTag 'script', '' , {src: src , type: "text/javascript" }
 
   stylesheetIncludeTag: (src) ->
-    contentTag 'link' , {rel: "stylesheet" , type: 'text/css'}
+    this.contentTag 'link' , {rel: "stylesheet" , type: 'text/css'}
 
   contentTag: (tag, args1 = null, args2 = null ) ->
      output = "<#{tag}"

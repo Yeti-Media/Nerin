@@ -1,7 +1,8 @@
+(function() {
+  var hashMerge;
 
-  Object.prototype.merge = function(ob) {
-    var i, key, o, value;
-    o = this;
+  hashMerge = function(o, ob) {
+    var i, key, value;
     i = 0;
     for (key in ob) {
       value = ob[key];
@@ -13,95 +14,95 @@
   window.Nerin = {
     linkTo: function(title, href, attributes) {
       if (attributes == null) attributes = {};
-      return contentTag('a', title, attributes.merge({
+      return this.contentTag('a', title, hashMerge({
         href: href
-      }));
+      }, attributes));
     },
     buttonTo: function(action, method, attributes) {
       if (attributes == null) attributes = {};
-      return formTag(action, {
+      return this.formTag(action, {
         method: method
       }, function() {
-        return inputTag('submit', attributes);
+        return this.inputTag('submit', attributes);
       });
     },
     mailTo: function(mail) {
-      return link_to(mail, "mailto:" + mail);
+      return this.linkTo(mail, "mailto:" + mail);
     },
     imageTag: function(src, attributes) {
       if (attributes == null) attributes = {};
-      return contentTag('img', attributes.merge({
+      return this.contentTag('img', hashMerge({
         src: src
-      }));
+      }, attributes));
     },
     formTag: function(action, attributes, content) {
       if (attributes == null) attributes = {};
-      return contentTag('form', content(), {
+      return this.contentTag('form', content(), hashMerge({
         method: 'POST'
-      }.merge(attributes));
+      }, attributes));
     },
     inputTag: function(type, value, attributes) {
       if (value == null) value = null;
       if (attributes == null) attributes = {};
-      return contentTag('input', {
+      return this.contentTag('input', hashMerge({
         type: type,
         value: value
-      }.merge(attributes));
+      }, attributes));
     },
     textFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return inputTag('text', {
+      return this.inputTag('text', hashMerge({
         name: name,
         value: value
-      }.merge(attributes));
+      }, attributes));
     },
     textAreaTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return contentTag('textarea', value, {
+      return this.contentTag('textarea', value, hashMerge({
         name: n
-      }.merge(attributes));
+      }, attributes));
     },
     passwordFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return inputTag('password', {
+      return this.inputTag('password', hashMerge({
         name: n,
         value: value
-      }.merge(attributes));
+      }, attributes));
     },
     fileFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return inputTag('file', {
+      return this.inputTag('file', hashMerge({
         name: n,
         value: value
-      }.merge(attributes));
+      }, attributes));
     },
     submitTag: function(n, value, attributes) {
       if (n == null) n = 'Commit';
       if (value == null) value = 'Submit';
       if (attributes == null) attributes = {};
-      return inputTag('submit', {
+      return this.inputTag('submit', hashMerge({
         name: n,
         value: value
-      }.merge(attributes));
+      }, attributes));
     },
     javascriptTag: function(data) {
-      return contentTag('script', data, {
+      return this.contentTag('script', data, {
         type: "text/javascript"
       });
     },
     stylesheetTag: function(data) {
-      return contentTag('style', data, {
+      return this.contentTag('style', data, {
         type: "text/css"
       });
     },
     javascriptIncludeTag: function(src) {
-      return contentTag('script', '', {
+      return this.contentTag('script', '', {
         src: src,
         type: "text/javascript"
       });
     },
     stylesheetIncludeTag: function(src) {
-      return contentTag('link', {
+      return this.contentTag('link', {
         rel: "stylesheet",
         type: 'text/css'
       });
@@ -136,3 +137,5 @@
       return output;
     }
   };
+
+}).call(this);
