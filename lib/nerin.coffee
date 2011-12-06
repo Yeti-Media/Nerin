@@ -7,7 +7,7 @@ Object::merge = (ob) ->
 
 window.Nerin = 
 
-  #UrlHelpers
+ a #UrlHelpers
   linkTo: (title, href, attributes = {}) ->
     contentTag 'a' , title , attributes.merge(href: href)
   
@@ -30,18 +30,20 @@ window.Nerin =
   inputTag: (type , value = null, attributes = {}) ->
     contentTag 'input', {type: type , value: value}.merge(attributes)
 
-  textFieldTag: (n,value,attributes) ->
+  textFieldTag: (n,value,attributes = {}) ->
     inputTag 'text' , {name: name, value: value}.merge(attributes)
 
-  textAreaTag : (n,value,attributes) -> 
+  textAreaTag: (n,value,attributes = {}) -> 
     contentTag 'textarea', value , {name: n}.merge(attributes)
 
-  passwordFieldTag : (n,value,attributes) ->
+  passwordFieldTag: (n,value,attributes = {}) ->
     inputTag 'password' , {name: n, value: value}.merge(attributes)
 
-  fileFieldTag : (n,value,attributes) -> 
+  fileFieldTag: (n,value,attributes = {}) -> 
     inputTag 'file' , {name: n, value: value}.merge(attributes)
 
+  submitTag: (n = 'Commit',value = 'Submit',attributes = {}) ->
+    inputTag 'submit', {name: n, value: value}.merge(attributes)
 
   #  Source tags
   javascriptTag: (data) ->

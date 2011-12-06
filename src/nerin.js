@@ -10,7 +10,7 @@
     return o;
   };
 
-  window.Nerin = {
+  window.Nerin = a({
     linkTo: function(title, href, attributes) {
       if (attributes == null) attributes = {};
       return contentTag('a', title, attributes.merge({
@@ -49,24 +49,37 @@
       }.merge(attributes));
     },
     textFieldTag: function(n, value, attributes) {
+      if (attributes == null) attributes = {};
       return inputTag('text', {
         name: name,
         value: value
       }.merge(attributes));
     },
     textAreaTag: function(n, value, attributes) {
+      if (attributes == null) attributes = {};
       return contentTag('textarea', value, {
         name: n
       }.merge(attributes));
     },
     passwordFieldTag: function(n, value, attributes) {
+      if (attributes == null) attributes = {};
       return inputTag('password', {
         name: n,
         value: value
       }.merge(attributes));
     },
     fileFieldTag: function(n, value, attributes) {
+      if (attributes == null) attributes = {};
       return inputTag('file', {
+        name: n,
+        value: value
+      }.merge(attributes));
+    },
+    submitTag: function(n, value, attributes) {
+      if (n == null) n = 'Commit';
+      if (value == null) value = 'Submit';
+      if (attributes == null) attributes = {};
+      return inputTag('submit', {
         name: n,
         value: value
       }.merge(attributes));
@@ -122,4 +135,4 @@
       }
       return output;
     }
-  };
+  });

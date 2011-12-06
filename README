@@ -13,7 +13,9 @@ Nerin.JavascriptIncludeTag('/nerin.js')
 
 Nerin.formTag("/path" , {method: 'GET'}, function(){
   output = textFieldTag("name","value");
-  output = fileFieldTag("file_name");
+  output += fileFieldTag("file_name");
+  output += submitTag()
+  return output
 })
 
 
