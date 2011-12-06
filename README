@@ -1,0 +1,44 @@
+Nerin
+=======
+
+Nerin are a set of view helpers with the same syntax like ActionView ruby lib.
+
+Examples:
+
+Nerin.contentTag('p' , 'content inside' , {class: 'new_class'})
+
+Nerin.linkTo('title' , '/path', {id: 'link_id'})
+
+Nerin.JavascriptIncludeTag('/nerin.js')
+
+Nerin.formTag("/path" , {method: 'GET'}, function(){
+  output = textFieldTag("name","value");
+  output = fileFieldTag("file_name");
+})
+
+
+Development
+========
+
+Structure:
+
+lib/: has the coffeescripts for nerin
+
+src/: has the compiled script
+
+spec/coffeescripts/: has the specs in cooffeescript
+
+spec/javascripts/: has the compiled specs plus the jasmine settings
+
+
+How to start to contribute:
+
+1- fork the project
+2- run bundle install
+3- run guard and rake jasmine
+4- build the spec for the feature
+5- implement the feature
+6- submit a pull request.
+
+
+
