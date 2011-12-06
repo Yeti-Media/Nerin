@@ -1,3 +1,4 @@
 public/javascripts/*.js
 spec/javascripts/*.js
 Gemfile.lock
+src/*.min.js
