@@ -11,49 +11,46 @@ window.Nerin =
   linkTo: (title, href, attributes = {}) ->
     this.contentTag 'a' , title , hashMerge({href: href},attributes)
   
-  buttonTo: (action , method, attributes = {}) ->
-    this.formTag action , {method: method}, () ->
-    this.inputTag 'submit' , attributes
+  buttonTo: (title, action , method = 'POST', attributes = {}) ->
+    this.formTag action , {method: method}, () =>
+      this.inputTag 'submit', 'Commit' , title ,attributes
   
   mailTo: (mail) ->
     this.linkTo mail, "mailto:#{mail}"
 
-  #AssetHelpers
-  imageTag: (src, attributes = {}) ->
-    this.contentTag 'img' , hashMerge({src: src},attributes)
     
  
   #FormHelpers
   formTag: (action,attributes = {}, content) ->
-    this.contentTag('form', content(), hashMerge({method: 'POST'},attributes))
+    this.contentTag('form', content(), hashMerge({action: action, method: 'POST'},attributes))
 
   labelTag: (fr, title, attributes = {}) ->
     this.contentTag('label' , title, hashMerge({for: fr}, attributes))
 
-  inputTag: (type , value = null, attributes = {}) ->
-    this.contentTag 'input', hashMerge({type: type , value: value},attributes)
+  inputTag: (type, n , value = null, attributes = {}) ->
+    this.contentTag 'input', hashMerge({name: n,type: type , value: value},attributes)
 
   textFieldTag: (n,value,attributes = {}) ->
-    this.inputTag 'text' , hashMerge({name: name, value: value},attributes)
+    this.inputTag 'text' , n , hashMerge({value: value},attributes)
 
   textAreaTag: (n,value,attributes = {}) -> 
     this.contentTag 'textarea', value , hashMerge({name: n},attributes)
 
   passwordFieldTag: (n,value,attributes = {}) ->
-    this.inputTag 'password' , hashMerge({name: n, value: value}, attributes)
+    this.inputTag 'password', n , hashMerge({value: value}, attributes)
 
   fileFieldTag: (n,value,attributes = {}) -> 
-    this.inputTag 'file' , hashMerge({name: n, value: value}, attributes)
+    this.inputTag 'file' , n, hashMerge({value: value}, attributes)
   
   checkBoxTag: (n,value,checked = true, attributes = {}) ->
-    attrs = {value: value, name: n}
+    attrs = {value: value}
     attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 'checkbox' , hashMerge(attrs,attributes)
+    this.inputTag 'checkbox',n , hashMerge(attrs,attributes)
   
   radioButtonTag: (n,value,checked = true, attributes = {}) ->
-    attrs = {value: value, name: n}
+    attrs = {value: value}
     attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 
+    this.inputTag 'radio' , n , hashMerge(attrs,attributes)
 
   selectTag: (n, options, select_attributes = {}, attributes = {}) ->
     content = ''
@@ -66,7 +63,7 @@ window.Nerin =
 
 
   submitTag: (n = 'Commit',value = 'Submit',attributes = {}) ->
-    this.inputTag 'submit', hashMerge({name: n, value: value}, attributes)
+    this.inputTag 'submit', n, hashMerge({value: value}, attributes)
 
   #  Source tags
   javascriptTag: (data) ->
@@ -81,6 +78,11 @@ window.Nerin =
   stylesheetIncludeTag: (src) ->
     this.contentTag 'link' , {rel: "stylesheet" , type: 'text/css'}
 
+  imageTag: (src, attributes = {}) ->
+    this.contentTag 'img' , hashMerge({src: src},attributes)
+
+
+  # core method
   contentTag: (tag, args1 = null, args2 = null ) ->
      output = "<#{tag}"
      if args1? && args1.constructor == Object
@@ -96,8 +98,7 @@ window.Nerin =
        output += " />"
      else
        output += ">#{innerHTML}</#{tag}>"
- 
- output
+     output
 
 
 

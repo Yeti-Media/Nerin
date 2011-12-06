@@ -18,25 +18,23 @@
         href: href
       }, attributes));
     },
-    buttonTo: function(action, method, attributes) {
+    buttonTo: function(title, action, method, attributes) {
+      var _this = this;
+      if (method == null) method = 'POST';
       if (attributes == null) attributes = {};
-      this.formTag(action, {
+      return this.formTag(action, {
         method: method
-      }, function() {});
-      return this.inputTag('submit', attributes);
+      }, function() {
+        return _this.inputTag('submit', 'Commit', title, attributes);
+      });
     },
     mailTo: function(mail) {
       return this.linkTo(mail, "mailto:" + mail);
     },
-    imageTag: function(src, attributes) {
-      if (attributes == null) attributes = {};
-      return this.contentTag('img', hashMerge({
-        src: src
-      }, attributes));
-    },
     formTag: function(action, attributes, content) {
       if (attributes == null) attributes = {};
       return this.contentTag('form', content(), hashMerge({
+        action: action,
         method: 'POST'
       }, attributes));
     },
@@ -46,18 +44,18 @@
         "for": fr
       }, attributes));
     },
-    inputTag: function(type, value, attributes) {
+    inputTag: function(type, n, value, attributes) {
       if (value == null) value = null;
       if (attributes == null) attributes = {};
       return this.contentTag('input', hashMerge({
+        name: n,
         type: type,
         value: value
       }, attributes));
     },
     textFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return this.inputTag('text', hashMerge({
-        name: name,
+      return this.inputTag('text', n, hashMerge({
         value: value
       }, attributes));
     },
@@ -69,15 +67,13 @@
     },
     passwordFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return this.inputTag('password', hashMerge({
-        name: n,
+      return this.inputTag('password', n, hashMerge({
         value: value
       }, attributes));
     },
     fileFieldTag: function(n, value, attributes) {
       if (attributes == null) attributes = {};
-      return this.inputTag('file', hashMerge({
-        name: n,
+      return this.inputTag('file', n, hashMerge({
         value: value
       }, attributes));
     },
@@ -86,30 +82,28 @@
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
       attrs = {
-        value: value,
-        name: n
+        value: value
       };
       if (checked) {
         attrs = hashMerge(attrs, {
           checked: 'checked'
         });
       }
-      return this.inputTag('checkbox', hashMerge(attrs, attributes));
+      return this.inputTag('checkbox', n, hashMerge(attrs, attributes));
     },
     radioButtonTag: function(n, value, checked, attributes) {
       var attrs;
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
       attrs = {
-        value: value,
-        name: n
+        value: value
       };
       if (checked) {
         attrs = hashMerge(attrs, {
           checked: 'checked'
         });
       }
-      return this.inputTag;
+      return this.inputTag('radio', n, hashMerge(attrs, attributes));
     },
     selectTag: function(n, options, select_attributes, attributes) {
       var content;
@@ -129,8 +123,7 @@
       if (n == null) n = 'Commit';
       if (value == null) value = 'Submit';
       if (attributes == null) attributes = {};
-      return this.inputTag('submit', hashMerge({
-        name: n,
+      return this.inputTag('submit', n, hashMerge({
         value: value
       }, attributes));
     },
@@ -156,6 +149,12 @@
         type: 'text/css'
       });
     },
+    imageTag: function(src, attributes) {
+      if (attributes == null) attributes = {};
+      return this.contentTag('img', hashMerge({
+        src: src
+      }, attributes));
+    },
     contentTag: function(tag, args1, args2) {
       var attributes, innerHTML, key, output, value;
       if (args1 == null) args1 = null;
@@ -179,13 +178,12 @@
         return _results;
       })();
       if (!innerHTML) {
-        return output += " />";
+        output += " />";
       } else {
-        return output += ">" + innerHTML + "</" + tag + ">";
+        output += ">" + innerHTML + "</" + tag + ">";
       }
+      return output;
     }
   };
-
-  output;
 
 }).call(this);
