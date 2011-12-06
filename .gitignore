@@ -1,3 +1,3 @@
-public/javascript/*.js
+public/javascripts/*.js
 spec/javascripts/*.js
 Gemfile.lock
