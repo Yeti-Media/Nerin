@@ -7,7 +7,7 @@ Object::merge = (ob) ->
 
 window.Nerin = 
 
- a #UrlHelpers
+  #UrlHelpers
   linkTo: (title, href, attributes = {}) ->
     contentTag 'a' , title , attributes.merge(href: href)
   

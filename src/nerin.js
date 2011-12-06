@@ -10,7 +10,7 @@
     return o;
   };
 
-  window.Nerin = a({
+  window.Nerin = {
     linkTo: function(title, href, attributes) {
       if (attributes == null) attributes = {};
       return contentTag('a', title, attributes.merge({
@@ -135,4 +135,4 @@
       }
       return output;
     }
-  });
+  };
