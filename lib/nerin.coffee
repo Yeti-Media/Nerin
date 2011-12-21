@@ -8,6 +8,7 @@ window.Nerin =
 
   #UrlHelpers
  
+ 
   linkTo: (title, href, attributes = {}) ->
     this.contentTag 'a' , title , hashMerge({href: href},attributes)
   
@@ -30,27 +31,25 @@ window.Nerin =
   inputTag: (type, n , value = null, attributes = {}) ->
     this.contentTag 'input', hashMerge({name: n,type: type , value: value},attributes)
 
-  textFieldTag: (n,value,attributes = {}) ->
-    this.inputTag 'text' , n , hashMerge({value: value},attributes)
+  textFieldTag: (n,value = '',attributes = {}) ->
+    this.inputTag 'text' , n , value ,attributes
 
-  textAreaTag: (n,value,attributes = {}) -> 
+  textAreaTag: (n,value =  '',attributes = {}) -> 
     this.contentTag 'textarea', value , hashMerge({name: n},attributes)
 
-  passwordFieldTag: (n,value,attributes = {}) ->
-    this.inputTag 'password', n , hashMerge({value: value}, attributes)
+  passwordFieldTag: (n,value = '',attributes = {}) ->
+    this.inputTag 'password', n , value, attributes
 
-  fileFieldTag: (n,value,attributes = {}) -> 
-    this.inputTag 'file' , n, hashMerge({value: value}, attributes)
+  fileFieldTag: (n,attributes = {}) -> 
+    this.inputTag 'file' , n, '', attributes
   
-  checkBoxTag: (n,value,checked = true, attributes = {}) ->
-    attrs = {value: value}
+  checkBoxTag: (n,value = '' ,checked = true, attributes = {}) ->
     attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 'checkbox',n , hashMerge(attrs,attributes)
+    this.inputTag 'checkbox',n, value , hashMerge(attrs,attributes)
   
-  radioButtonTag: (n,value,checked = true, attributes = {}) ->
-    attrs = {value: value}
+  radioButtonTag: (n,value = '',checked = true, attributes = {}) ->
     attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 'radio' , n , hashMerge(attrs,attributes)
+    this.inputTag 'radio' , n, value , hashMerge(attrs,attributes)
 
   selectTag: (n, options, select_attributes = {}, attributes = {}) ->
     content = ''
@@ -63,7 +62,7 @@ window.Nerin =
 
 
   submitTag: (n = 'Commit',value = 'Submit',attributes = {}) ->
-    this.inputTag 'submit', n, hashMerge({value: value}, attributes)
+    this.inputTag 'submit', n, value, attributes
 
   #  Source tags
   javascriptTag: (data) ->

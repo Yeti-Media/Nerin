@@ -54,56 +54,49 @@
       }, attributes));
     },
     textFieldTag: function(n, value, attributes) {
+      if (value == null) value = '';
       if (attributes == null) attributes = {};
-      return this.inputTag('text', n, hashMerge({
-        value: value
-      }, attributes));
+      return this.inputTag('text', n, value, attributes);
     },
     textAreaTag: function(n, value, attributes) {
+      if (value == null) value = '';
       if (attributes == null) attributes = {};
       return this.contentTag('textarea', value, hashMerge({
         name: n
       }, attributes));
     },
     passwordFieldTag: function(n, value, attributes) {
+      if (value == null) value = '';
       if (attributes == null) attributes = {};
-      return this.inputTag('password', n, hashMerge({
-        value: value
-      }, attributes));
+      return this.inputTag('password', n, value, attributes);
     },
-    fileFieldTag: function(n, value, attributes) {
+    fileFieldTag: function(n, attributes) {
       if (attributes == null) attributes = {};
-      return this.inputTag('file', n, hashMerge({
-        value: value
-      }, attributes));
+      return this.inputTag('file', n, '', attributes);
     },
     checkBoxTag: function(n, value, checked, attributes) {
       var attrs;
+      if (value == null) value = '';
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
-      attrs = {
-        value: value
-      };
       if (checked) {
         attrs = hashMerge(attrs, {
           checked: 'checked'
         });
       }
-      return this.inputTag('checkbox', n, hashMerge(attrs, attributes));
+      return this.inputTag('checkbox', n, value, hashMerge(attrs, attributes));
     },
     radioButtonTag: function(n, value, checked, attributes) {
       var attrs;
+      if (value == null) value = '';
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
-      attrs = {
-        value: value
-      };
       if (checked) {
         attrs = hashMerge(attrs, {
           checked: 'checked'
         });
       }
-      return this.inputTag('radio', n, hashMerge(attrs, attributes));
+      return this.inputTag('radio', n, value, hashMerge(attrs, attributes));
     },
     selectTag: function(n, options, select_attributes, attributes) {
       var content;
@@ -123,9 +116,7 @@
       if (n == null) n = 'Commit';
       if (value == null) value = 'Submit';
       if (attributes == null) attributes = {};
-      return this.inputTag('submit', n, hashMerge({
-        value: value
-      }, attributes));
+      return this.inputTag('submit', n, value, attributes);
     },
     javascriptTag: function(data) {
       return this.contentTag('script', data, {
