@@ -22,11 +22,10 @@
       var _this = this;
       if (method == null) method = 'POST';
       if (attributes == null) attributes = {};
-      return this.formTag(action, {
+      this.formTag(action, {
         method: method
-      }, function() {
-        return _this.inputTag('submit', 'Commit', title, attributes);
-      });
+      }, function() {});
+      return this.inputTag('submit', 'Commit', title, attributes);
     },
     mailTo: function(mail) {
       return this.linkTo(mail, "mailto:" + mail);
@@ -52,6 +51,11 @@
         type: type,
         value: value
       }, attributes));
+    },
+    hiddenFieldTag: function(n, value, attributes) {
+      if (value == null) value = '';
+      if (attributes == null) attributes = {};
+      return this.inputTag('hidden', n, value, attributes);
     },
     textFieldTag: function(n, value, attributes) {
       if (value == null) value = '';

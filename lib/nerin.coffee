@@ -14,7 +14,7 @@ window.Nerin =
   
   buttonTo: (title, action , method = 'POST', attributes = {}) ->
     this.formTag action , {method: method}, () =>
-      this.inputTag 'submit', 'Commit' , title ,attributes
+    this.inputTag 'submit', 'Commit' , title ,attributes
   
   mailTo: (mail) ->
     this.linkTo mail, "mailto:#{mail}"
@@ -30,6 +30,9 @@ window.Nerin =
 
   inputTag: (type, n , value = null, attributes = {}) ->
     this.contentTag 'input', hashMerge({name: n,type: type , value: value},attributes)
+
+  hiddenFieldTag: (n,value = '' , attributes = {}) ->
+    this.inputTag 'hidden' , n, value, attributes
 
   textFieldTag: (n,value = '',attributes = {}) ->
     this.inputTag 'text' , n , value ,attributes
