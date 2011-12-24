@@ -79,28 +79,26 @@
       return this.inputTag('file', n, '', attributes);
     },
     checkBoxTag: function(n, value, checked, attributes) {
-      var attrs;
       if (value == null) value = '';
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
       if (checked) {
-        attrs = hashMerge(attrs, {
+        attributes = hashMerge(attributes, {
           checked: 'checked'
         });
       }
-      return this.inputTag('checkbox', n, value, hashMerge(attrs, attributes));
+      return this.inputTag('checkbox', n, value, attributes);
     },
     radioButtonTag: function(n, value, checked, attributes) {
-      var attrs;
       if (value == null) value = '';
       if (checked == null) checked = true;
       if (attributes == null) attributes = {};
       if (checked) {
-        attrs = hashMerge(attrs, {
+        attributes = hashMerge(attributes, {
           checked: 'checked'
         });
       }
-      return this.inputTag('radio', n, value, hashMerge(attrs, attributes));
+      return this.inputTag('radio', n, value, attributes);
     },
     selectTag: function(n, options, select_attributes, attributes) {
       var content;

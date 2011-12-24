@@ -47,12 +47,12 @@ window.Nerin =
     this.inputTag 'file' , n, '', attributes
   
   checkBoxTag: (n,value = '' ,checked = true, attributes = {}) ->
-    attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 'checkbox',n, value , hashMerge(attrs,attributes)
+    attributes = hashMerge(attributes, checked: 'checked') if checked
+    this.inputTag 'checkbox',n, value , attributes
   
   radioButtonTag: (n,value = '',checked = true, attributes = {}) ->
-    attrs = hashMerge(attrs, checked: 'checked') if checked
-    this.inputTag 'radio' , n, value , hashMerge(attrs,attributes)
+    attributes = hashMerge(attributes, checked: 'checked') if checked
+    this.inputTag 'radio' , n, value , attributes
 
   selectTag: (n, options, select_attributes = {}, attributes = {}) ->
     content = ''
