@@ -58,7 +58,7 @@ window.Nerin =
     content = ''
     content +=  this.optionTag("","") if select_attributes.include_blank
     content += options 
-    this.contentTag 'select' , content , attributes
+    this.contentTag 'select' , content , hashMerge({name: n},attributes)
 
   optionTag: (title, value) ->
     this.contentTag 'option' , title , {value: value}
